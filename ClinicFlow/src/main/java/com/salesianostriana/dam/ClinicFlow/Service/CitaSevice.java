@@ -41,6 +41,7 @@ public class CitaSevice {
                 throw new RuntimeException("No puedes tener dos fechas con la misma hora y dia");
             }
         });
+
         if (cita.getFechaHora().isAfter(LocalDateTime.now())){
             throw new RuntimeException("No pueden citas que tenga una fecha pasada");
         }
