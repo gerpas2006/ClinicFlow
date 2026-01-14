@@ -8,6 +8,9 @@ import com.salesianostriana.dam.ClinicFlow.Repository.CitaRepository;
 import com.salesianostriana.dam.ClinicFlow.Repository.PacienteRepository;
 import com.salesianostriana.dam.ClinicFlow.Repository.ProfesionalRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -47,5 +50,33 @@ public class CitaSevice {
         }
 
         return citaRepository.save(cita);
+    }
+
+    public List<Cita> citasPorPaciente(Long idPaciente){
+        if(citaRepository.findByPacienteId(idPaciente).isEmpty()){
+            throw new RuntimeException("No hay ninguna cita asociada a ese paciente");
+        }
+        return citaRepository.findByPacienteId(idPaciente);
+    }
+
+    public List<Cita> citasSegunEstado(Estado estado){
+        if (citaRepository.findByEstado(estado).isEmpty()){
+            throw new RuntimeException("No se ha encontrado ninguna cita con ese estado");
+        }
+        return citaRepository.findByEstado(estado);
+    }
+
+    public List<Cita> citasPorRangoDeFechas(LocalDateTime inicio, LocalDateTime fin){
+        if (citaRepository.findByFechaHoraBetween(inicio,fin).isEmpty()){
+            throw new RuntimeException("No hay citas con ese rango de fechas");
+        }
+        return citaRepository.findByFechaHoraBetween(inicio,fin);
+    }
+
+    public Page<Cita> findAll(Pageable pageable){
+        if (citaRepository.findAll().isEmpty()){
+            throw new RuntimeException("No hay ninguna cita");
+        }
+        return citaRepository.findAll(pageable);
     }
 }
