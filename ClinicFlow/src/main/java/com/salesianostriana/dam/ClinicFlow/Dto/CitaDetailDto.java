@@ -32,12 +32,12 @@ public record CitaDetailDto(
             String diagnostico
     ){}
 
-    public static CitaDetailDto of(Cita cita){
-        return new CitaDetailDto(cita.getId(),
-                cita.getFechaHora(),
-                cita.getEstado(),
-                new CitaDetailDto.PacienteSimple(cita.getId())
-                cita.getProfesional(),
-                cita.getConsulta());
-    }
+//    public static CitaDetailDto of(Cita cita){
+//        return new CitaDetailDto(cita.getId(),
+//                cita.getFechaHora(),
+//                cita.getEstado(),
+//                new CitaDetailDto.PacienteSimple()
+//                cita.getProfesional(),
+//                cita.getConsulta());
+//    }
 }
